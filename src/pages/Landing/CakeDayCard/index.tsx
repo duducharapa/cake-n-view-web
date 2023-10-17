@@ -1,10 +1,18 @@
+import { useState } from "react";
 import { CakeDayCardProps } from "./props";
+import UnrevealedCard from "./UnrevealedCard";
 
 const CakeDayCard = ({ cake }: CakeDayCardProps) => {
+    const [revealed, setRevealed] = useState<boolean>(false);
+
     const { cake: data } = cake;
     const { name, description, imageUrl } = data;
 
-    return (
+    const triggerReveal = () => {
+        setRevealed(true);
+    };
+
+    return revealed ? (
         <article className="w-3/5 bg-primary rounded p-8 flex flex-row">
             <img src={imageUrl} className="rounded w-[300px]" alt="Bolo de cenoura" />
 
@@ -19,7 +27,7 @@ const CakeDayCard = ({ cake }: CakeDayCardProps) => {
                 </a>
             </div>
         </article>
-    );
+    ) : <UnrevealedCard onClick={triggerReveal} />;
 };
 
 export default CakeDayCard;
