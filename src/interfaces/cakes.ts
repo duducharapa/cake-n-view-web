@@ -4,6 +4,10 @@ type Cake = {
     averageRating: number;
     description: string;
     imageUrl: string;
+    rating: {
+        average: number;
+        quantity: number;
+    }
 };
 
 type DailyCake = {

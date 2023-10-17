@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 import Navbar from "./Navbar";
 import apresentation from "../../assets/apresentation.png";
-import CakeDayCard from "./CakeDayCard";
+import CakeDayCard from "../../components/CakeDayCard";
 import NextCakeCounter from "./NextCakeCounter";
 import SectionHeader from "../../components/SectionHeader";
 import TrendCakeCard from "../../components/TrendCakeCard";
@@ -45,11 +46,13 @@ const Landing = () => {
                             <h3 className="text-2xl">Saboreie <strong className="text-terciary">resultados</strong></h3>
                         </hgroup>
 
-                        <button
+                        <motion.a
+                            whileHover={{ scale: 1.1, cursor: "pointer" }}
+                            whileTap={{ scale: 0.5 }}
                             className="bg-primaryDark w-[240px] h-[84px] rounded-lg flex items-center justify-center shadow-[4px_6px_4px_0px_rgba(0,0,0,0.4)] hover:bg-primaryDarker duration-300"
                         >
                             <p className="text-xl font-semibold">HORA DE PROVAR</p>
-                        </button>
+                        </motion.a>
                     </div>
                 </main>
             </div>
@@ -59,7 +62,11 @@ const Landing = () => {
                     <SectionHeader title="Bolo do dia" subtitle="Cairia bem um certo bolo hoje! Quer adivinhar qual?" mode="secondary" />
 
                     {
-                        dailyCake?.id ? <CakeDayCard cake={dailyCake} /> : <p>carregando</p>
+                        dailyCake?.id ? (
+                            <div className="w-full relative flex flex-col items-center">
+                                <CakeDayCard cake={dailyCake} />
+                            </div>
+                        ) : <p>carregando</p>
                     }
 
                     <NextCakeCounter />
@@ -72,11 +79,13 @@ const Landing = () => {
 
                     <div className="flex flex-col w-full items-center gap-y-12">
                         {
-                            trendingCakes.map(cake => (
-                                <TrendCakeCard cake={cake} />
+                            trendingCakes.map((cake, index) => (
+                                <TrendCakeCard cake={cake} key={cake.id} animation={index % 2 == 0 ? "right" : "left"} />
                             )) || <p>carregando</p>
                         }
                     </div>
+
+                    <a href="/cakes" className="text-2xl font-semibold hover:underline mt-20 mb-2">E muitas outras opções!</a>
                 </section>
             </div>
 
