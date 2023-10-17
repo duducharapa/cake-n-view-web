@@ -9,10 +9,11 @@ export default {
     colors: {
         primary: "#F82530",
         primaryDark: "#8A050C",
+        primaryDarker: "#4E0307",
         white: "#FFE9D6",
+        gray: "#79797C",
         secondary: "#FFF399",
         terciary: "#FCAB5F",
-        terciaryDark: "#8C4503",
         black: "#1F1E1F"
     },
     fontFamily: {
