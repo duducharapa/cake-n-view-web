@@ -1,11 +1,35 @@
+import { useCallback, useEffect, useState } from "react";
+
 import Navbar from "./Navbar";
 import apresentation from "../../assets/apresentation.png";
 import CakeDayCard from "./CakeDayCard";
 import NextCakeCounter from "./NextCakeCounter";
 import SectionHeader from "../../components/SectionHeader";
 import TrendCakeCard from "../../components/TrendCakeCard";
+import api from "../../services/api";
+import { Cake, DailyCake } from "../../interfaces/cakes";
 
 const Landing = () => {
+    const [dailyCake, setDailyCake] = useState<DailyCake>({} as DailyCake);
+    const [trendingCakes, setTrendingCakes] = useState<Cake[]>([] as Cake[]);
+
+    const getDailyCake = useCallback(async () => {
+        const data = await api.getDailyCake();
+
+        setDailyCake(data);
+    }, []);
+
+    const getTrendingCakes = useCallback(async () => {
+        const data = await api.getTrendingCakes();
+
+        setTrendingCakes(data);
+    }, []);
+
+    useEffect(() => {
+        getDailyCake();
+        getTrendingCakes();
+    }, [getDailyCake, getTrendingCakes]);
+
     return (
         <>
             <Navbar />
@@ -34,7 +58,10 @@ const Landing = () => {
                 <section className="container mx-auto py-20 flex flex-col items-center">
                     <SectionHeader title="Bolo do dia" />
 
-                    <CakeDayCard />
+                    {
+                        dailyCake?.id ? <CakeDayCard cake={dailyCake} /> : <p>carregando</p>
+                    }
+
                     <NextCakeCounter />
                 </section>
             </div>
@@ -46,9 +73,11 @@ const Landing = () => {
                     <SectionHeader title="Destaques" />
 
                     <div className="flex flex-col w-full items-center gap-y-12">
-                        <TrendCakeCard />
-                        <TrendCakeCard />
-                        <TrendCakeCard />
+                        {
+                            trendingCakes.map(cake => (
+                                <TrendCakeCard cake={cake} />
+                            )) || <p>carregando</p>
+                        }
                     </div>
                 </section>
             </div>
