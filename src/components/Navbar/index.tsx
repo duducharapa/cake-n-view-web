@@ -1,4 +1,4 @@
-import paths from "../../../routes/path";
+import paths from "../../routes/paths";
 import "./navbar.css";
 
 const Navbar = () => {

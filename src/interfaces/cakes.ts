@@ -1,7 +1,6 @@
 type Cake = {
     id: number;
     name: string;
-    averageRating: number;
     description: string;
     imageUrl: string;
     rating: {
@@ -16,7 +15,24 @@ type DailyCake = {
     expiresAt: string;
 };
 
+type CakeListingPage = {
+    content: Cake[];
+    pageable: {
+        pageNumber: number;
+        pageSize: number;
+    };
+    totalPages: number;
+    totalElements: number;
+    numberOfElements: number;
+}
+
+type CakeListingParams = {
+    page?: number;
+}
+
 export type {
     Cake,
-    DailyCake
+    DailyCake,
+    CakeListingPage,
+    CakeListingParams
 };

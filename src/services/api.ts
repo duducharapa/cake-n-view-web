@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Cake, DailyCake } from "../interfaces/cakes";
+import { Cake, CakeListingPage, CakeListingParams, DailyCake } from "../interfaces/cakes";
 
 const api = axios.create({
     baseURL: import.meta.env.VITE_API_URL
@@ -15,11 +15,23 @@ const getDailyCake = async (): Promise<DailyCake> => {
 const getTrendingCakes = async (): Promise<Cake[]> => {
     const { data, status } = await api.get<Cake[]>("/cakes/trendings");
 
-    if (status == 200) return data;
+    if (status === 200) return data;
     return [] as Cake[];
+};
+
+const getCakes = async (params?: CakeListingParams): Promise<CakeListingPage> => {
+    const { data, status } = await api.get<CakeListingPage>("/cakes", {
+        params: {
+            page: params?.page || 0
+        }
+    });
+
+    if (status === 200) return data;
+    return {} as CakeListingPage;
 };
 
 export default {
     getDailyCake,
-    getTrendingCakes
+    getTrendingCakes,
+    getCakes
 };
