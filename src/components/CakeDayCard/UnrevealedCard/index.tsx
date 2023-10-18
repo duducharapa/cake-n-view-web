@@ -1,29 +1,35 @@
-import { motion, useAnimate } from "framer-motion";
+import { useAnimate } from "framer-motion";
+import { useMemo, useState } from "react";
 
 const UnrevealedCard = () => {
     const [scope, animate] = useAnimate();
+    const [complete, setComplete] = useState<boolean>(false);
+
+    const display = useMemo(() => {
+        return complete ? "hidden" : "block";
+    }, [complete]);
 
     const handleClick = async () => {
         await animate(scope.current, {
             opacity: 0
         }, {
-            duration: 2,
+            duration: 1,
             ease: "linear"
         });
+
+        setComplete(true);
     };
 
     return (
-        <motion.div
-            className="w-3/5 absolute overflow-hidden"
+        <div
             ref={scope}
-            onTap={handleClick}
+            onClick={handleClick}
+            className={`w-3/5 bg-black rounded p-8 flex items-center justify-center hover:cursor-pointer absolute ${display}`}
         >
-            <div className="w-full bg-black rounded p-8 flex items-center justify-center hover:cursor-pointer">
-                <div className="h-[280px] flex items-center justify-center">
-                    <p className="font-bold text-xl">Clique para revelar</p>
-                </div>
+            <div className="h-[280px] flex items-center justify-center">
+                <p className="font-bold text-xl">Clique para revelar</p>
             </div>
-        </motion.div>
+        </div>
     );
 };
 

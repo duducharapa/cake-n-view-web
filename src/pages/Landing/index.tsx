@@ -69,7 +69,7 @@ const Landing = () => {
                         ) : <p>carregando</p>
                     }
 
-                    <NextCakeCounter />
+                    <NextCakeCounter expiresAt={dailyCake?.expiresAt || new Date().toISOString()} />
                 </section>
             </div>
 
