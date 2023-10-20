@@ -1,46 +1,67 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { motion } from "framer-motion";
 import { BiSearch } from "react-icons/bi";
 
 import Navbar from "../../components/Navbar";
-import { CakeListingPage } from "../../interfaces/cakes";
+import { Cake } from "../../interfaces/cakes";
 import CakeSearchRow from "../../components/CakeSearchRow";
+import PaginationNav from "../../components/PaginationNav";
+import Footer from "../../components/Footer";
 
 import api from "../../services/api";
-import Footer from "../../components/Footer";
-import PaginationNav from "../../components/PaginationNav";
+import { PageMetadata } from "../../interfaces/pages";
 
 const Cakes = () => {
-    const [cakesPage, setCakesPage] = useState<CakeListingPage>({} as CakeListingPage);
-    const [page, setPage] = useState<number>(1);
+    const PAGE_SIZE = 10;
+
+    const [cakes, setCakes] = useState<Cake[]>([] as Cake[]);
+    const [page, setPage] = useState<number>(0);
+    const [search, setSearch] = useState<string>("");
+    const [loading, setLoading]= useState<boolean>(true);
+
+    const [pageMetadata, setPageMetadata] = useState<PageMetadata>({
+        numberOfElements: 0,
+        totalElements: 0,
+        totalPages: 0
+    });
 
     const getCakes = useCallback(async () => {
+        setLoading(true);
+
         const data = await api.getCakes({
-            page: page - 1
+            page: page,
+            name: search
         });
 
-        setCakesPage(data);
-    }, [page]);
+        const { content, numberOfElements, totalElements, totalPages } = data;
+        setCakes([ ...content ]);
+        setPageMetadata({
+            numberOfElements, totalElements, totalPages
+        });
 
-    const totalPages = useMemo(() => {
-        return cakesPage.totalPages || 0;
-    }, [cakesPage]);
+        setLoading(false);
+    }, [page, search]);
 
     const resultsInterval = useMemo(() => {
-        if (!cakesPage.pageable) return {
-            init: 0,
-            final: 0
-        };
+        const { numberOfElements } = pageMetadata;
 
-        const { pageNumber, pageSize } = cakesPage.pageable;
-
-        const intervalInit = (pageNumber * pageSize) + 1;
-        const intervalFinal = (pageNumber * pageSize) + cakesPage.numberOfElements;
+        const intervalInit = (page * PAGE_SIZE) + 1;
+        const intervalFinal = (page * PAGE_SIZE) + numberOfElements;
 
         return {
             init: intervalInit,
             final: intervalFinal
         };
-    }, [cakesPage]);
+    }, [page, pageMetadata]);
+
+    const handleSeach = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearch(e.currentTarget.value);
+        setPage(0);
+    };
+
+    const handlePageChange = (pageNumber: number) => {
+        setPage(pageNumber);
+    };
 
     useEffect(() => {
         getCakes();
@@ -61,24 +82,56 @@ const Cakes = () => {
                 <div className="container mx-auto py-20 flex justify-center">
                     <div className="w-3/5 border-gray border-2 bg-white rounded flex items-center pl-5">
                         <BiSearch color="#79797C" size="24" />
-                        <input type="text" className="bg-white p-3 text-gray w-full outline-none" placeholder="Busque um bolo" />
+                        <input
+                            className="bg-white p-3 text-gray w-full outline-none"
+                            placeholder="Busque um bolo"
+                            onChange={handleSeach}
+                            value={search}
+                        />
                     </div>
                 </div>
 
                 <section className="container mx-auto flex flex-col items-center gap-y-5 pb-20">
+                    <h3 className="text-2xl">
+                        Buscando por
+                        <strong> "{search}"</strong>
+                    </h3>
+
                     {
-                        cakesPage.content?.map(cake => (
-                            <CakeSearchRow cake={cake} key={cake.id} />
-                        )) || <p>carregando</p>
+                        loading ?
+                            <p>loading</p> :
+                            cakes.map((cake, index) => (
+                                <motion.div
+                                    className="w-full flex justify-center"
+                                    initial={{
+                                        opacity: 0,
+                                        y: 20
+                                    }}
+                                    animate={{
+                                        opacity: 1,
+                                        y: 0
+                                    }}
+                                    transition={{
+                                        delay: index * 0.2,
+                                        duration: 0.5
+                                    }}
+                                >
+                                    <CakeSearchRow cake={cake} key={cake.id} />
+                                </motion.div>
+                            ))
                     }
 
                     <div className="w-3/5 flex flex-col items-end">
                         <p className="self-end">
                             <strong>{resultsInterval.init}</strong>-<strong>{resultsInterval.final}</strong> de
-                            <strong> {cakesPage.totalElements}</strong> resultados
+                            <strong> {pageMetadata.totalElements}</strong> resultados
                         </p>
                     </div>
-                    <PaginationNav actual={page} total={totalPages} onPageChange={(page) => setPage(page)} />
+                    <PaginationNav
+                        actual={page}
+                        total={pageMetadata.totalPages}
+                        onPageChange={(pageNumber) => handlePageChange(pageNumber)}
+                    />
                 </section>
             </div>
 

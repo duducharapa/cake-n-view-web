@@ -28,6 +28,7 @@ type CakeListingPage = {
 
 type CakeListingParams = {
     page?: number;
+    name: string;
 }
 
 export type {

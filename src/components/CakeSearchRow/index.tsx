@@ -2,9 +2,16 @@ import { motion } from "framer-motion";
 
 import RatingStars from "../RatingStars";
 import { CakeSearchRowProps } from "./props";
+import { useNavigate } from "react-router-dom";
+import paths from "../../routes/paths";
 
 const CakeSearchRow = ({ cake }: CakeSearchRowProps) => {
-    const { name, imageUrl, rating, description } = cake;
+    const navigate = useNavigate();
+    const { name, imageUrl, rating, description, id } = cake;
+
+    const handleClick = () => {
+        navigate(paths.CAKE.replace(":id", id.toString()));
+    };
 
     return (
         <motion.div
@@ -19,6 +26,7 @@ const CakeSearchRow = ({ cake }: CakeSearchRowProps) => {
                 y: -10,
                 cursor: "pointer"
             }}
+            onClick={handleClick}
         >
             <article className="w-full rounded flex flex-row bg-white p-4">
                 <img src={imageUrl} alt={name} className="w-[128px] h-[128px] rounded" />
