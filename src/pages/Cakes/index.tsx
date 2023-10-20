@@ -74,13 +74,13 @@ const Cakes = () => {
             <div className="w-full bg-primary text-white">
                 <main className="container mx-auto py-20 flex flex-col items-center">
                     <h1 className="text-7xl font-bold mb-6">Cake 'n View</h1>
-                    <h4 className="text-4xl font-normal">Bolos e tortas</h4>
+                    <h4 className="text-4xl font-normal font-autour">Bolos e tortas</h4>
                 </main>
             </div>
 
             <div className="w-full bg-primary">
-                <div className="container mx-auto py-20 flex justify-center">
-                    <div className="w-3/5 border-gray border-2 bg-white rounded flex items-center pl-5">
+                <div className="container mx-auto pt-10 pb-20 flex justify-center">
+                    <div className="w-3/5 border-white border-2 bg-white rounded flex items-center pl-5">
                         <BiSearch color="#79797C" size="24" />
                         <input
                             className="bg-white p-3 text-gray w-full outline-none"

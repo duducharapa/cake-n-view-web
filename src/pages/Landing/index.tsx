@@ -51,7 +51,7 @@ const Landing = () => {
                         <motion.a
                             whileHover={{ scale: 1.1, cursor: "pointer" }}
                             whileTap={{ scale: 0.5 }}
-                            className="bg-primaryDark w-[240px] h-[84px] rounded-lg flex items-center justify-center shadow-[4px_6px_4px_0px_rgba(0,0,0,0.4)] hover:bg-primaryDarker duration-300"
+                            className="bg-primaryDark w-[240px] h-[84px] rounded flex items-center justify-center shadow-[4px_6px_4px_0px_rgba(0,0,0,0.4)] hover:bg-primaryDarker duration-300"
                         >
                             <p className="text-xl font-semibold">HORA DE PROVAR</p>
                         </motion.a>

@@ -1,10 +1,16 @@
+import { useNavigate } from "react-router-dom";
+
 import { CakeDayCardProps } from "./props";
 import UnrevealedCard from "./UnrevealedCard";
 import RatingStars from "../RatingStars";
+import paths from "../../routes/paths";
 
 const CakeDayCard = ({ cake }: CakeDayCardProps) => {
+    const navigate = useNavigate();
     const { cake: data } = cake;
-    const { name, description, imageUrl, rating } = data;
+    const { name, description, imageUrl, rating, id } = data;
+
+    const handleClick = () => navigate(paths.CAKE.replace(":id", id.toString()));
 
     return (
         <>
@@ -22,9 +28,12 @@ const CakeDayCard = ({ cake }: CakeDayCardProps) => {
                     <div className="flex flex-col gap-y-3 items-end">
                         <RatingStars value={rating.average} ratings={rating.quantity} />
 
-                        <a href="/" className="w-full h-[56px] bg-primaryDark rounded flex items-center justify-center hover:bg-primaryDarker duration-300">
+                        <button
+                            className="w-full h-[56px] bg-primaryDark rounded flex items-center justify-center hover:bg-primaryDarker duration-300"
+                            onClick={handleClick}
+                        >
                             <span className="text-xl font-semibold">Quero mais sobre</span>
-                        </a>
+                        </button>
                     </div>
                 </div>
             </article>

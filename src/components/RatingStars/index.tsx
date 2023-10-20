@@ -1,7 +1,7 @@
 import Star from "./Star";
 import { RatingStarsProps, StarMode } from "./props";
 
-const RatingStars = ({ value, ratings, variant = "primary" }: RatingStarsProps) => {
+const RatingStars = ({ value, ratings = 0, variant = "primary", noCounter = false }: RatingStarsProps) => {
     const formattedValue = value.toString().replace(".", ",");
 
     const textColor = `text-${variant === "primary" ? "white" : "gray"}`;
@@ -18,7 +18,10 @@ const RatingStars = ({ value, ratings, variant = "primary" }: RatingStarsProps) 
 
     return (
         <div className={`flex flex-row gap-x-2 font-semibold ${textColor}`}>
-            <span className="mr-4 font-normal">{ratings} {ratings === 1 ? "avaliação" : "avaliações"}</span>
+            {
+                !noCounter &&
+                    <span className="mr-4 font-normal">{ratings} {ratings === 1 ? "avaliação" : "avaliações"}</span>
+            }
             {
                 starsTypes.map((type, index) => <Star filled={type} key={index} background={backgroundStar} />)
             }

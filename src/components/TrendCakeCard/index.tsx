@@ -1,9 +1,14 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 import { TrendCakeCardProps } from "./props";
+import paths from "../../routes/paths";
 
 const TrendCakeCard = ({ cake, animation }: TrendCakeCardProps) => {
-    const { name, imageUrl, description } = cake;
+    const navigate = useNavigate();
+    const { name, imageUrl, description, id } = cake;
+
+    const handleClick = () => navigate(paths.CAKE.replace(":id", id.toString()));
 
     return (
         <motion.div
@@ -24,9 +29,12 @@ const TrendCakeCard = ({ cake, animation }: TrendCakeCardProps) => {
                     <div className="flex ml-5 flex-col h-full w-full justify-between">
                         <p className="text-black text-md">{description}</p>
 
-                        <a href="/" className="w-[180px] h-[64px] bg-primary hover:bg-primaryDark duration-300 rounded flex items-center justify-center shadow-[2px_4px_4px_0px_rgba(0,0,0,0.4)] self-end">
-                            <p className="text-white font-semibold text-xl">Ver mais</p>
-                        </a>
+                        <button
+                            className="w-[180px] h-[64px] bg-primary hover:bg-primaryDark duration-300 rounded flex items-center justify-center shadow-[2px_4px_4px_0px_rgba(0,0,0,0.4)] self-end"
+                            onClick={handleClick}
+                        >
+                            <span className="text-white font-semibold text-xl">Ver mais</span>
+                        </button>
                     </div>
                 </div>
             </article>

@@ -1,3 +1,5 @@
+import { RatingListing } from "./ratings";
+
 type Cake = {
     id: number;
     name: string;
@@ -31,9 +33,15 @@ type CakeListingParams = {
     name: string;
 }
 
+type CakeDetails = {
+    cake: Cake;
+    ratings: RatingListing
+}
+
 export type {
     Cake,
     DailyCake,
     CakeListingPage,
-    CakeListingParams
+    CakeListingParams,
+    CakeDetails
 };

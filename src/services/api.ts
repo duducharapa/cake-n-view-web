@@ -1,5 +1,6 @@
 import axios from "axios";
-import { Cake, CakeListingPage, CakeListingParams, DailyCake } from "../interfaces/cakes";
+import { Cake, CakeDetails, CakeListingPage, CakeListingParams, DailyCake } from "../interfaces/cakes";
+import { RatingListing } from "../interfaces/ratings";
 
 const api = axios.create({
     baseURL: import.meta.env.VITE_API_URL
@@ -30,8 +31,31 @@ const getCakes = async (params?: CakeListingParams): Promise<CakeListingPage> =>
     return {} as CakeListingPage;
 };
 
+const getRatings = async (cakeId: number): Promise<RatingListing> => {
+    const { data, status } = await api.get<RatingListing>("/ratings", {
+        params: {
+            cakeId
+        }
+    });
+
+    if (status !== 200) throw new Error("Cannot get ratings");
+    return data;
+};
+
+const findCake = async (id: number): Promise<CakeDetails> => {
+    const { data: cake, status } = await api.get<Cake>(`/cakes/${id}`);
+    if (status !== 200) throw new Error("Cannot find cake");
+
+    const ratings = await getRatings(id);
+    return {
+        cake,
+        ratings
+    };
+};
+
 export default {
     getDailyCake,
     getTrendingCakes,
-    getCakes
+    getCakes,
+    findCake
 };
