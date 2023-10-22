@@ -17,15 +17,17 @@ const RatingStars = ({ value, ratings = 0, variant = "primary", noCounter = fals
     });
 
     return (
-        <div className={`flex flex-row gap-x-2 font-semibold ${textColor}`}>
+        <div className={`flex flex-col md:flex-row gap-x-0 lg:gap-x-2 gap-y-1 lg:gap-y-0 font-semibold items-center lg:items-start ${textColor}`}>
             {
                 !noCounter &&
                     <span className="mr-4 font-normal">{ratings} {ratings === 1 ? "avaliação" : "avaliações"}</span>
             }
-            {
-                starsTypes.map((type, index) => <Star filled={type} key={index} background={backgroundStar} />)
-            }
-            <span>{formattedValue}</span>
+            <div className="flex flex-row gap-x-2">
+                {
+                    starsTypes.map((type, index) => <Star filled={type} key={index} background={backgroundStar} />)
+                }
+                <span>{formattedValue}</span>
+            </div>
         </div>
     );
 };
