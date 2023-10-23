@@ -79,7 +79,7 @@ const Landing = () => {
             </div>
 
             <div className="bg-primary w-full">
-                <section className="container mx-auto py-20 flex flex-col items-center px-10 lg:px-0">
+                <section className="container mx-auto py-20 flex flex-col items-center px-10 lg:px-0 overflow-hidden">
                     <SectionHeader title="Destaques" subtitle="Estes bolos são os queridinhos da galera! Que tal dar uma olhada?" />
 
                     <div className="flex flex-col w-full items-center gap-y-12">

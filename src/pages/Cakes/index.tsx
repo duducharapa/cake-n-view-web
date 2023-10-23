@@ -72,15 +72,15 @@ const Cakes = () => {
             <Navbar />
 
             <div className="w-full bg-primary text-white">
-                <main className="container mx-auto py-20 flex flex-col items-center">
-                    <h1 className="text-7xl font-bold mb-6">Cake 'n View</h1>
-                    <h4 className="text-4xl font-normal font-autour">Bolos e tortas</h4>
+                <main className="container mx-auto py-20 flex flex-col items-center px-10 lg:px-0">
+                    <h1 className="text-5xl md:text-7xl font-bold mb-6">Cake 'n View</h1>
+                    <h4 className="text-3xl md:text-4xl font-normal font-autour">Bolos e tortas</h4>
                 </main>
             </div>
 
             <div className="w-full bg-primary">
-                <div className="container mx-auto pt-10 pb-20 flex justify-center">
-                    <div className="w-3/5 border-white border-2 bg-white rounded flex items-center pl-5">
+                <div className="container mx-auto pt-4 lg:pt-10 pb-20 flex justify-center px-10 lg:px-0">
+                    <div className="w-full md:w-4/5 border-white border-2 bg-white rounded flex items-center pl-5">
                         <BiSearch color="#79797C" size="24" />
                         <input
                             className="bg-white p-3 text-gray w-full outline-none"
@@ -91,8 +91,8 @@ const Cakes = () => {
                     </div>
                 </div>
 
-                <section className="container mx-auto flex flex-col items-center gap-y-5 pb-20">
-                    <h3 className="text-2xl">
+                <section className="container mx-auto flex flex-col items-center gap-y-5 pb-20 px-10 lg:px-0">
+                    <h3 className="text-2xl text-center">
                         Buscando por
                         <strong> "{search}"</strong>
                     </h3>
@@ -103,6 +103,7 @@ const Cakes = () => {
                             cakes.map((cake, index) => (
                                 <motion.div
                                     className="w-full flex justify-center"
+                                    key={cake.id}
                                     initial={{
                                         opacity: 0,
                                         y: 20
@@ -121,7 +122,7 @@ const Cakes = () => {
                             ))
                     }
 
-                    <div className="w-3/5 flex flex-col items-end">
+                    <div className="w-full md:w-4/5 flex flex-col items-end">
                         <p className="self-end">
                             <strong>{resultsInterval.init}</strong>-<strong>{resultsInterval.final}</strong> de
                             <strong> {pageMetadata.totalElements}</strong> resultados
