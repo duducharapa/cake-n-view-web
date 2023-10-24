@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Cake, CakeDetails, CakeListingPage, CakeListingParams, DailyCake } from "../interfaces/cakes";
 import { RatingListing } from "../interfaces/ratings";
+import { AuthCredentials, AuthResponse } from "../interfaces/auth";
 
 const api = axios.create({
     baseURL: import.meta.env.VITE_API_URL
@@ -53,9 +54,31 @@ const findCake = async (id: number): Promise<CakeDetails> => {
     };
 };
 
+const login = async (credentials: AuthCredentials): Promise<AuthResponse> => {
+    const { email, password } = credentials;
+
+    try {
+        const { data, status } = await api.post<AuthResponse>("/login", {}, {
+            headers: {
+                "username": email,
+                password
+            }
+        });
+
+        if (status === 201) return data;
+        return {
+            token: ""
+        } as AuthResponse;
+    } catch (ex) {
+        throw new Error("Credentials not match");
+    }
+
+};
+
 export default {
     getDailyCake,
     getTrendingCakes,
     getCakes,
-    findCake
+    findCake,
+    login
 };

@@ -3,5 +3,7 @@ export default {
     CAKES: "/cakes",
     RATINGS: "/ratings",
     ABOUT: "/about",
-    CAKE: "/cake/:id"
+    CAKE: "/cake/:id",
+    AUTH: "/login",
+    SIGNUP: "/signup"
 };

@@ -1,12 +1,15 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import routes from "./routes";
+import { AuthProvider } from "./hooks/auth";
 
 const App = () => {
     const router = createBrowserRouter(routes);
 
     return (
-        <RouterProvider router={router} />
+        <AuthProvider>
+            <RouterProvider router={router} />
+        </AuthProvider>
     );
 };
 

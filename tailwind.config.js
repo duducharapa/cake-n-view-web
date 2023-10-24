@@ -14,7 +14,8 @@ export default {
         gray: "#79797C",
         secondary: "#FFF399",
         terciary: "#FCAB5F",
-        black: "#1F1E1F"
+        black: "#1F1E1F",
+        error: "#FF0022"
     },
     fontFamily: {
         autour: ["Autour One"],
