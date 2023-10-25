@@ -6,6 +6,7 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useAuth } from "../../hooks/auth";
 import { AuthCredentials } from "../../interfaces/auth";
 import paths from "../../routes/paths";
+import BackButton from "../../components/BackButton";
 
 const Auth = () => {
     const { login } = useAuth();
@@ -46,6 +47,10 @@ const Auth = () => {
     return (
         <div className="bg-primary w-[100vw] min-h-[100vh] flex items-center justify-center">
             <form className="w-5/6 lg:w-3/6 bg-white rounded p-8 flex flex-col items-center gap-y-3" onSubmit={submitLogin}>
+                <div className="w-full md:w-4/5">
+                    <BackButton />
+                </div>
+
                 <div className="mt-3 mb-5 flex flex-col items-center gap-y-2">
                     <h1 className="text-primary text-3xl md:text-4xl font-autour">Cake n' View</h1>
                     <h2 className="text-gray text-2xl md:text-3xl">Entrar</h2>

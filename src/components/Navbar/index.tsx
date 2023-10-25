@@ -28,7 +28,7 @@ const Navbar = () => {
 
                 {
                     isAuthenticated ?
-                        <img src={profile} className="w-[56px]" /> :
+                        <img src={profile} className="w-[48px]" /> :
                         <button
                             className="bg-primaryDark hover:bg-primaryDarker duration-300 w-[128px] h-[48px] rounded"
                             onClick={() => navigate(paths.AUTH)}

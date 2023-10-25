@@ -6,6 +6,7 @@ import { CakeDetails } from "../../interfaces/cakes";
 import Footer from "../../components/Footer";
 import RatingStars from "../../components/RatingStars";
 import RatingRow from "../../components/RatingRow";
+import BackButton from "../../components/BackButton";
 
 const CakePage = () => {
     const cakeDetails = useLoaderData() as CakeDetails;
@@ -23,7 +24,11 @@ const CakePage = () => {
             </div>
 
             <div className="w-full bg-white">
-                <section className="container mx-auto py-20 flex flex-col lg:flex-row justify-around px-10 lg:px-20 gap-y-5 lg:gap-y-0">
+                <div className="container mx-auto px-10 lg:px-20 pt-20 pb-10">
+                    <BackButton />
+                </div>
+                <section className="container mx-auto pb-20 flex flex-col lg:flex-row justify-around px-10 lg:px-20 gap-y-5 lg:gap-y-0">
+
                     <div className="flex flex-col items-center gap-y-5">
                         <img src={imageUrl} alt={name} className="w-[400px] rounded" />
                         <RatingStars ratings={rating.quantity} value={rating.average} variant="secondary" />
