@@ -44,14 +44,14 @@ const Auth = () => {
     };
 
     return (
-        <div className="bg-primary w-[100vw] h-[100vh] flex items-center justify-center">
-            <form className="w-3/6 bg-white rounded p-8 flex flex-col items-center gap-y-3" onSubmit={submitLogin}>
+        <div className="bg-primary w-[100vw] min-h-[100vh] flex items-center justify-center">
+            <form className="w-5/6 lg:w-3/6 bg-white rounded p-8 flex flex-col items-center gap-y-3" onSubmit={submitLogin}>
                 <div className="mt-3 mb-5 flex flex-col items-center gap-y-2">
-                    <h1 className="text-primary text-4xl font-autour">Cake n' View</h1>
-                    <h2 className="text-gray text-3xl">Entrar</h2>
+                    <h1 className="text-primary text-3xl md:text-4xl font-autour">Cake n' View</h1>
+                    <h2 className="text-gray text-2xl md:text-3xl">Entrar</h2>
                 </div>
 
-                <div className="w-4/5 text-gray flex flex-col gap-y-1">
+                <div className="w-full md:w-4/5 text-gray flex flex-col gap-y-1">
                     <label htmlFor="email">Email</label>
                     <div className="w-full border-2 border-gray flex flex-row items-center rounded py-2 pr-3">
                         <span className="mx-3">
@@ -66,7 +66,7 @@ const Auth = () => {
                     </div>
                 </div>
 
-                <div className="w-4/5 text-gray flex flex-col gap-y-1">
+                <div className="w-full md:w-4/5 text-gray flex flex-col gap-y-1">
                     <label htmlFor="password">Senha</label>
                     <div className="w-full border-2 border-gray flex flex-row items-center rounded py-2">
                         <span className="mx-3">
@@ -87,15 +87,15 @@ const Auth = () => {
                 </div>
 
                 {
-                    error && <div className="w-4/5 text-error">
+                    error && <div className="w-full md:w-4/5 text-error">
                         <p>Nome ou credenciais inválidas</p>
                     </div>
                 }
 
-                <div className="w-4/5 flex justify-end my-3">
+                <div className="w-full md:w-4/5 flex justify-end my-3">
                     <button
                         type="submit"
-                        className="bg-primary rounded w-[144px] h-[56px] hover:bg-primaryDark duration-300"
+                        className="bg-primary rounded w-full md:w-[168px] flex items-center justify-center h-[56px] hover:bg-primaryDark duration-300"
                     >
                         <span className="text-white text-lg font-semibold">Entrar</span>
                     </button>

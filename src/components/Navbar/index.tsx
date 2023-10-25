@@ -13,7 +13,7 @@ const Navbar = () => {
 
     return (
         <div className="w-full bg-primary">
-            <nav className="container mx-auto h-[128px] lg:h-[144px] color-white flex items-center justify-between">
+            <nav className="container mx-auto h-[128px] lg:h-[144px] color-white flex items-center justify-between px-10 lg:px-0">
                 <div className="w-full flex flex-row gap-x-10 font-autour">
                     <button
                         className="text-2xl md:text-3xl navbar-link relative after:bg-white"
