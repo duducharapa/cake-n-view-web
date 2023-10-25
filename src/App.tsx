@@ -1,4 +1,5 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 import routes from "./routes";
 import { AuthProvider } from "./hooks/auth";
@@ -8,6 +9,11 @@ const App = () => {
 
     return (
         <AuthProvider>
+            <ToastContainer
+                autoClose={2000}
+                hideProgressBar
+                newestOnTop
+            />
             <RouterProvider router={router} />
         </AuthProvider>
     );

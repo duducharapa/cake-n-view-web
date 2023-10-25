@@ -12,6 +12,7 @@ type AuthResponse = {
 type AuthContextType = {
     login: (credentials: AuthCredentials) => Promise<boolean>
     isAuthenticated: boolean
+    authToken: string
 }
 
 interface AuthProviderProps {

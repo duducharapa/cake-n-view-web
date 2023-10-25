@@ -15,7 +15,14 @@ type RatingListing = {
     numberOfElements: number;
 };
 
+type RateCake = {
+    number: number;
+    comment?: string;
+    cakeId: number;
+};
+
 export type {
     Rating,
-    RatingListing
+    RatingListing,
+    RateCake
 };

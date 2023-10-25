@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
 import Navbar from "../../components/Navbar";
@@ -7,11 +7,26 @@ import Footer from "../../components/Footer";
 import RatingStars from "../../components/RatingStars";
 import RatingRow from "../../components/RatingRow";
 import BackButton from "../../components/BackButton";
+import { useAuth } from "../../hooks/auth";
+import paths from "../../routes/paths";
+import { useState } from "react";
+import RateCakeModal from "../../components/RateCakeModal";
 
 const CakePage = () => {
+    const { isAuthenticated } = useAuth();
+    const navigate = useNavigate();
+
     const cakeDetails = useLoaderData() as CakeDetails;
     const { name, imageUrl, rating, description } = cakeDetails.cake;
     const { content: ratings } = cakeDetails.ratings;
+
+    const [openModal, setOpenModal] = useState<boolean>(false);
+
+    const handleRating = () => {
+        if (!isAuthenticated) navigate(paths.AUTH);
+
+        setOpenModal(true);
+    };
 
     return (
         <>
@@ -39,14 +54,18 @@ const CakePage = () => {
                     </div>
                 </section>
 
-                <div className="container mx-auto pb-10 lg:pb-20 flex flex-col items-center lg:items-end px-10 lg:px-20">
+                <div className="container mx-auto pb-10 lg:pb-20 flex flex-col items-center lg:items-end px-10 lg:px-20 gap-y-3">
                     <motion.button
                         className="bg-primary rounded h-[84px] w-[256px] shadow-[4px_6px_4px_0px_rgba(0,0,0,0.4)] hover:bg-primaryDark duration-300"
                         whileHover={{ scale: 1.1, cursor: "pointer" }}
                         whileTap={{ scale: 0.5 }}
+                        onClick={handleRating}
                     >
                         <span className="font-bold text-xl">Deixar sua avaliação</span>
                     </motion.button>
+                    {
+                        !isAuthenticated && <span className="text-error">É preciso estar autenticado para avaliar este bolo</span>
+                    }
                 </div>
 
                 <section className="container mx-auto pt-10 pb-20 flex flex-col items-center gap-y-5 px-10 lg:px-20">
@@ -63,6 +82,8 @@ const CakePage = () => {
             </div>
 
             <Footer />
+
+            <RateCakeModal open={openModal} onClose={() => setOpenModal(false)} cake={cakeDetails.cake} />
         </>
     );
 };

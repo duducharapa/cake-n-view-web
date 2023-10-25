@@ -22,7 +22,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
     const contextValues: AuthContextType = {
         login,
-        isAuthenticated
+        isAuthenticated,
+        authToken: token
     };
 
     return (

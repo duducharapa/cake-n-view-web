@@ -1,6 +1,7 @@
 import axios from "axios";
+
 import { Cake, CakeDetails, CakeListingPage, CakeListingParams, DailyCake } from "../interfaces/cakes";
-import { RatingListing } from "../interfaces/ratings";
+import { RateCake, RatingListing } from "../interfaces/ratings";
 import { AuthCredentials, AuthResponse } from "../interfaces/auth";
 
 const api = axios.create({
@@ -75,10 +76,31 @@ const login = async (credentials: AuthCredentials): Promise<AuthResponse> => {
 
 };
 
+const rateCake = async (body: RateCake, authToken: string): Promise<boolean> => {
+    const { comment } = body;
+
+    try {
+        const { status } = await api.post("/ratings", {
+            ...body,
+            ...(comment !== "" && { comment })
+        }, {
+            headers: {
+                Authorization: `Bearer ${authToken}`
+            }
+        });
+
+        if (status === 201) return true;
+        return false;
+    } catch (ex) {
+        return false;
+    }
+};
+
 export default {
     getDailyCake,
     getTrendingCakes,
     getCakes,
     findCake,
-    login
+    login,
+    rateCake
 };
