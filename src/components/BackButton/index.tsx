@@ -11,7 +11,7 @@ const BackButton = ({ className = "" }: BackButtonProps) => {
     return (
         <button
             type="button"
-            className={`text-primary flex flex-row items-center gap-x-2 text-xl ${className}`}
+            className={`text-primary hover:text-primaryDark duration-300 flex flex-row items-center gap-x-2 text-xl ${className}`}
             onClick={handleBack}
         >
             <FaRegArrowAltCircleLeft size="24" />

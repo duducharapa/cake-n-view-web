@@ -1,26 +1,21 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { BiSolidLockAlt, BiSolidUser } from "react-icons/bi";
-import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { toast } from "react-toastify";
 
 import { useAuth } from "../../hooks/auth";
 import { AuthCredentials } from "../../interfaces/auth";
 import paths from "../../routes/paths";
 import BackButton from "../../components/BackButton";
+import EmailInput from "../../components/inputs/EmailInput";
+import PasswordInput from "../../components/inputs/PasswordInput";
 
 const Auth = () => {
     const { login } = useAuth();
     const navigate = useNavigate();
 
-    const [visible, setVisible] = useState<boolean>(false);
     const [error, setError] = useState<boolean>(false);
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-
-    const toggleVisibility = (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-        setVisible(!visible);
-    };
 
     const changeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value, id } = e.currentTarget;
@@ -31,16 +26,23 @@ const Auth = () => {
     };
 
     const submitLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+        const credentials: AuthCredentials = { email, password };
+
         e.preventDefault();
         setError(false);
-        const credentials: AuthCredentials = { email, password };
 
         try {
             const successfull = await login(credentials);
-            if (successfull) navigate(paths.LANDING);
-            else setError(true);
+
+            if (successfull) {
+                navigate(paths.LANDING);
+            } else {
+                setError(true);
+                toast.error("Email e/ou senha inválidos");
+            }
         } catch (ex) {
             setError(true);
+            toast.error("Email e/ou senha inválidos");
         }
     };
 
@@ -57,45 +59,12 @@ const Auth = () => {
                 </div>
 
                 <div className="w-full md:w-4/5 text-gray flex flex-col gap-y-1">
-                    <label htmlFor="email">Email</label>
-                    <div className="w-full border-2 border-gray flex flex-row items-center rounded py-2 pr-3">
-                        <span className="mx-3">
-                            <BiSolidUser size="26" />
-                        </span>
-                        <input
-                            type="email" id="email" placeholder="Seu melhor email"
-                            value={email}
-                            className="bg-white w-full placeholder:text-gray outline-none"
-                            onChange={changeValue}
-                        />
-                    </div>
+                    <EmailInput email={email} onChange={changeValue} error={error} />
                 </div>
 
                 <div className="w-full md:w-4/5 text-gray flex flex-col gap-y-1">
-                    <label htmlFor="password">Senha</label>
-                    <div className="w-full border-2 border-gray flex flex-row items-center rounded py-2">
-                        <span className="mx-3">
-                            <BiSolidLockAlt size="26" />
-                        </span>
-                        <input
-                            type={visible ? "text" : "password"} id="password" placeholder="Sua melhor senha"
-                            value={password}
-                            className="bg-white w-full placeholder:text-gray outline-none"
-                            onChange={changeValue}
-                        />
-                        <button className="mx-3" onClick={toggleVisibility}>
-                            {
-                                visible ? <AiFillEyeInvisible size="26" /> : <AiFillEye size="26" />
-                            }
-                        </button>
-                    </div>
+                    <PasswordInput password={password} onChange={changeValue} error={error} />
                 </div>
-
-                {
-                    error && <div className="w-full md:w-4/5 text-error">
-                        <p>Nome ou credenciais inválidas</p>
-                    </div>
-                }
 
                 <div className="w-full md:w-4/5 flex justify-end my-3">
                     <button

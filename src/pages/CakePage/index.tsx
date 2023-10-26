@@ -67,11 +67,13 @@ const CakePage = () => {
                         !isAuthenticated && <span className="text-error">É preciso estar autenticado para avaliar este bolo</span>
                     }
                 </div>
+            </div>
 
+            <div className="w-full bg-primary">
                 <section className="container mx-auto pt-10 pb-20 flex flex-col items-center gap-y-5 px-10 lg:px-20">
-                    <h2 className="text-primary text-3xl font-semibold">Avaliações ({rating.quantity})</h2>
+                    <h2 className="text-white text-3xl font-semibold">Avaliações ({rating.quantity})</h2>
 
-                    <div className="w-full rounded bg-primary flex flex-col items-center py-10 gap-y-5">
+                    <div className="w-full flex flex-col items-center py-10 gap-y-5">
                         {
                             ratings.map(rating => (
                                 <RatingRow rating={rating} key={rating.id} />

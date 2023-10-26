@@ -8,7 +8,7 @@ const RatingRow = ({ rating }: RatingRowProps) => {
     const commentColor = `text-${comment ? "black" : "gray"}`;
 
     return (
-        <article className="w-10/12 md:w-4/5 rounded bg-white flex flex-col md:flex-row items-center md:items-start p-5">
+        <article className="w-full rounded bg-white flex flex-col md:flex-row items-center md:items-start p-5">
             <img src={profileIcon} className="w-[84px] h-[84px] rounded" />
             <div className="ml-0 md:ml-5 flex flex-col gap-y-2">
                 <h4 className="text-black text-xl font-semibold text-center md:text-justify">Ernesta patifaria</h4>
