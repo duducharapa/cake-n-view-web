@@ -1,0 +1,10 @@
+version: "2"
+services:
+    api:
+        image: charapadev/cakenview-api
+        ports:
+            - 8080:8080
+    web:
+        image: charapadev/cakenview-web
+        ports:
+            - 5173:80

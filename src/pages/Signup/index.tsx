@@ -49,7 +49,7 @@ const Signup = () => {
 
     return (
         <div className="bg-primary w-full min-h-[100vh] flex items-center justify-center">
-            <form className="w-3/6 bg-white rounded p-8 flex flex-col items-center gap-y-3 my-10 lg:my-20" onSubmit={submitSignup}>
+            <form className="w-5/6 lg:w-3/6 bg-white rounded p-8 flex flex-col items-center gap-y-3 my-10 lg:my-20" onSubmit={submitSignup}>
                 <div className="w-full md:w-4/5">
                     <BackButton />
                 </div>

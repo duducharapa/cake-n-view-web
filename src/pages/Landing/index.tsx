@@ -6,11 +6,13 @@ import CakeDayCard from "../../components/CakeDayCard";
 import NextCakeCounter from "../../components/NextCakeCounter";
 import SectionHeader from "../../components/SectionHeader";
 import TrendCakeCard from "../../components/TrendCakeCard";
+import Footer from "../../components/Footer";
+import Loading from "../../components/Loading";
 
 import apresentation from "../../assets/apresentation.png";
 import api from "../../services/api";
 import { Cake, DailyCake } from "../../interfaces/cakes";
-import Footer from "../../components/Footer";
+
 
 const Landing = () => {
     const [dailyCake, setDailyCake] = useState<DailyCake>({} as DailyCake);
@@ -71,7 +73,7 @@ const Landing = () => {
                             <div className="w-full relative flex flex-col items-center">
                                 <CakeDayCard cake={dailyCake} />
                             </div>
-                        ) : <p>carregando</p>
+                        ) : <Loading />
                     }
 
                     <NextCakeCounter expiresAt={dailyCake?.expiresAt || new Date().toISOString()} />
@@ -86,7 +88,7 @@ const Landing = () => {
                         {
                             trendingCakes.map((cake, index) => (
                                 <TrendCakeCard cake={cake} key={cake.id} animation={index % 2 == 0 ? "right" : "left"} />
-                            )) || <p>carregando</p>
+                            )) || <Loading />
                         }
                     </div>
 

@@ -10,6 +10,7 @@ import Footer from "../../components/Footer";
 
 import api from "../../services/api";
 import { PageMetadata } from "../../interfaces/pages";
+import Loading from "../../components/Loading";
 
 const Cakes = () => {
     const PAGE_SIZE = 10;
@@ -93,29 +94,20 @@ const Cakes = () => {
 
                 <section className="container mx-auto flex flex-col items-center gap-y-5 pb-20 px-10 lg:px-0">
                     <h3 className="text-2xl text-center">
-                        Buscando por
-                        <strong> "{search}"</strong>
+                        Buscando:
+                        <strong> {search}</strong>
                     </h3>
 
                     {
                         loading ?
-                            <p>loading</p> :
+                            <Loading /> :
                             cakes.map((cake, index) => (
                                 <motion.div
                                     className="w-full flex justify-center"
                                     key={cake.id}
-                                    initial={{
-                                        opacity: 0,
-                                        y: 20
-                                    }}
-                                    animate={{
-                                        opacity: 1,
-                                        y: 0
-                                    }}
-                                    transition={{
-                                        delay: index * 0.2,
-                                        duration: 0.5
-                                    }}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: index * 0.2, duration: 0.5 }}
                                 >
                                     <CakeSearchRow cake={cake} key={cake.id} />
                                 </motion.div>
