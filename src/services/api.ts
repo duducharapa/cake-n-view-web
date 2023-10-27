@@ -3,6 +3,7 @@ import axios from "axios";
 import { Cake, CakeDetails, CakeListingPage, CakeListingParams, DailyCake } from "../interfaces/cakes";
 import { RateCake, RatingListing } from "../interfaces/ratings";
 import { AuthCredentials, AuthResponse } from "../interfaces/auth";
+import { RegisterUserBody } from "../interfaces/user";
 
 const api = axios.create({
     baseURL: import.meta.env.VITE_API_URL
@@ -96,11 +97,30 @@ const rateCake = async (body: RateCake, authToken: string): Promise<boolean> => 
     }
 };
 
+const registerUser = async (body: RegisterUserBody): Promise<boolean> => {
+    try {
+        const { status } = await api.post("/users", body);
+
+        if (status === 201) return true;
+        return false;
+    } catch (ex) {
+        return false;
+    }
+};
+
 export default {
+    // Cake endpoints
     getDailyCake,
     getTrendingCakes,
     getCakes,
     findCake,
+
+    // Auth endpoints
     login,
-    rateCake
+
+    // Rating endpoints
+    rateCake,
+
+    // Users endpoints
+    registerUser
 };

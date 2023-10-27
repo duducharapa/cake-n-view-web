@@ -1,9 +1,9 @@
-import { MdEmail } from "react-icons/md";
-
-import { EmailInputProps } from "./props";
 import { useMemo, useState } from "react";
+import { BiSolidUser } from "react-icons/bi";
 
-const EmailInput = ({ email, onChange, error }: EmailInputProps) => {
+import { NameInputProps } from "./props";
+
+const NameInput = ({ name, onChange, error }: NameInputProps) => {
     const [focus, setFocus] = useState<boolean>(false);
 
     const borderStyle = useMemo(() => {
@@ -23,14 +23,14 @@ const EmailInput = ({ email, onChange, error }: EmailInputProps) => {
 
     return (
         <>
-            <label htmlFor="email" className={`${textStyle}`}>Email</label>
+            <label htmlFor="name" className={`${textStyle}`}>Nome completo</label>
             <div className={`w-full border-2 flex flex-row items-center rounded py-2 pr-3 ${borderStyle} ${textStyle}`}>
                 <span className="mx-3">
-                    <MdEmail size="26" />
+                    <BiSolidUser size="26" />
                 </span>
                 <input
-                    type="email" id="email" placeholder="Seu melhor email"
-                    value={email} onChange={onChange} onFocus={handleFocus} onBlur={handleBlur}
+                    type="text" id="name" placeholder="Seu nome completo"
+                    value={name} onChange={onChange} onFocus={handleFocus} onBlur={handleBlur}
                     className="bg-white w-full placeholder:text-gray outline-none"
                 />
             </div>
@@ -38,4 +38,4 @@ const EmailInput = ({ email, onChange, error }: EmailInputProps) => {
     );
 };
 
-export default EmailInput;
+export default NameInput;

@@ -1,7 +1,10 @@
+import { User } from "./user";
+
 type Rating = {
-    id: number;
-    number: number;
-    comment: string;
+    id: number
+    number: number
+    comment: string
+    user: User
 };
 
 type RatingListing = {

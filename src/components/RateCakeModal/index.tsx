@@ -36,8 +36,12 @@ const RateCakeModal = ({ open, onClose, cake }: RateCakeModalProps) => {
 
         const posted = await api.rateCake(body, authToken);
 
-        if (posted) onClose();
-        toast.error("O usuário já avaliou este bolo");
+        if (posted) {
+            toast.success("Avaliação adicionada com sucesso!");
+            onClose();
+        } else {
+            toast.error("O usuário já avaliou este bolo!");
+        }
     };
 
     return (
